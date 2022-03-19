@@ -19,10 +19,10 @@ const promptUser = () => {
     },
     {
       type: 'input',
-      name: 'id',
+      name: 'employeeId',
       message: 'Enter your Emplyoee ID # (Required)',
-      validate: githubInput => {
-        if (githubInput) {
+      validate: employeeIdinput => {
+        if (employeeIdinput) {
           return true;
         } else {
           console.log('Please enter your Employee ID#');
@@ -34,8 +34,8 @@ const promptUser = () => {
       type: 'input',
       name: 'email',
       message: 'Enter your work email (Required)',
-      validate: githubInput => {
-        if (githubInput) {
+      validate: emailInput => {
+        if (emailInput) {
           return true;
         } else {
           console.log('Please enter your employee email');
@@ -58,25 +58,25 @@ const promptUser = () => {
   ]);
 };
 
-const promptEmployee = employeeData => {
+const promptEmployee = employeeStats => {
   console.log(`
 =================
 Add a New Team Member
 =================
 `);
 
-  // If there's no 'employee' array property, create one
-  if (!employeeData.employee) {
-    employeeData.employee = [];
+  // If there's no 'employee stats' array property, create one
+  if (!employeeStats.employee) {
+    employeeStats.employee = [];
   }
   return inquirer
     .prompt([
       {
-        type: "input",
-        name: "School",
+        type: 'input',
+        name: 'school',
         message: "Please add additional education pertaining to your role including Name, Year of Graduation, and Degree Certification. Please type N/A or type N to skip to the next prompt. (Required)",
-        validate: (nameInput) => {
-          if (nameInput) {
+        validate: (schoolInput) => {
+          if (schoolInput) {
             return true;
           } else {
             console.log("Please enter school name/degree certification or type N/A to skip");
@@ -85,11 +85,11 @@ Add a New Team Member
         },
       },
       {
-        type: "input",
-        name: "office number",
+        type: 'input',
+        name: 'officeNumber',
         message: "Please enter your office number. If this does not apply please enter N/A or Type N to skip to the next prompt. (Required)",
-        validate: (descriptionInput) => {
-          if (descriptionInput) {
+        validate: (officeNumberInput) => {
+          if (officeNumberInput) {
             return true;
           } else {
             console.log("Please enter N/A or Type N to skip to the next prompt");
@@ -98,8 +98,8 @@ Add a New Team Member
         },
       },
       {
-        type: "checkbox",
-        name: "Role",
+        type: 'checkbox',
+        name: 'role',
         message: "What is your role? (Please select one or more)",
         choices: [
           "Employee",
@@ -109,8 +109,8 @@ Add a New Team Member
         ],
       },
       {
-        type: "input",
-        name: "link",
+        type: 'input',
+        name: 'gitHublink',
         message: "Enter Your Github Link if required for your role. If not link is available please type N/A or Type N to skip to the next prompt. (Required)",
         validate: (linkInput) => {
           if (linkInput) {
@@ -123,7 +123,7 @@ Add a New Team Member
       },
       {
         type: "confirm",
-        name: "Employee",
+        name: "feature",
         message: "Would you like to add this Employee to your roster?",
         default: false,
       },
@@ -137,17 +137,17 @@ Add a New Team Member
     .then(employeeStats => {
       employeeData.employee.push(employeeStats);
       if (employeeStats.confirmAddEmployee) {
-        return promptEmployee(employeeData);
+        return promptEmployee(employeeStats);
       } else {
-        return employeeData;
+        return employeeStats;
       }
     });
 };
 
 promptUser()
   .then(promptEmployee)
-  .then(employeeData => {
-    return generatePage(employeeData);
+  .then(employeeStats => {
+    return generatePage(employeeStats);
   })
   .then((pageHTML) => {
     return writeFile(pageHTML);
