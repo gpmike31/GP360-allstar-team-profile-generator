@@ -1,19 +1,15 @@
-// link to page creation
+// node modules
 const generateHTML = require('./src/generateHTML');
-
-// team profiles
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern'); 
-
-// node modules 
 const fs = require('fs'); 
 const inquirer = require('inquirer');
 
 // team array
 const teamArray = []; 
 
-// start of manager prompts 
+// Prompts for manager - Beginner prompts
 const addManager = () => {
     return inquirer.prompt ([
         {
@@ -79,6 +75,7 @@ const addManager = () => {
     })
 };
 
+//Add employee prompts
 const addEmployee = () => {
     console.log(`
     =================
@@ -195,7 +192,7 @@ const addEmployee = () => {
 };
 
 
-// function to generate HTML page file using file system 
+// file system function to generateHTML page
 const writeFile = data => {
     fs.writeFile('./dist/index.html', data, err => {
         // if there is an error 
@@ -209,6 +206,7 @@ const writeFile = data => {
     })
 }; 
 
+//return functions to catch errors
 addManager()
   .then(addEmployee)
   .then(teamArray => {
