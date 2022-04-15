@@ -1,10 +1,10 @@
 // node modules
-const generateHTML = require("./src/generateHTML");
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-const fs = require("fs");
-const inquirer = require("inquirer");
+const generateHTML = require('./src/generateHTML');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const fs = require('fs');
+const inquirer = require('inquirer');
 
 // team array
 const teamArray = [];
@@ -88,7 +88,7 @@ const addEmployee = () => {
         type: 'list',
         name: 'role',
         message: "Please choose employee role",
-        choices: ['Engineer', 'Intern', 'Other']
+        choices: ['Engineer', 'Intern']
       },
       {
         type: 'input',
